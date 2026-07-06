@@ -1,6 +1,4 @@
 import pandas as pd
-import numpy as np
-
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -11,25 +9,18 @@ def load_dataset(file_path):
     df = pd.read_csv(file_path)
     return df
 
-def basic_cleaning(df):
-    df = df.drop_duplicates()
-    df.columns = df.columns.str.strip()
-    return df
-
 def separate_features(df, target_column):
-    X = df.drop(columns=[target_column])
+    x = df.drop(columns=[target_column])
     y = df[target_column]
-    return X, y
+    return x, y
 
 def get_feature_types(X):
     numerical_features = X.select_dtypes(
         include=["int64", "float64"]
     ).columns.tolist()
-
     categorical_features = X.select_dtypes(
         include=["object"]
     ).columns.tolist()
-
     return numerical_features, categorical_features
 
 
@@ -44,7 +35,6 @@ def create_preprocessor(
                 "imputer",
                 SimpleImputer(strategy="median")
             ),
-
             (
                 "scaler",
                 StandardScaler()
@@ -58,7 +48,6 @@ def create_preprocessor(
                 "imputer",
                 SimpleImputer(strategy="most_frequent")
             ),
-
             (
                 "encoder",
                 OneHotEncoder(
@@ -91,11 +80,9 @@ def create_preprocessor(
 
 
 def select_features(df, feature_list, target_column):
-
-    X = df[feature_list].copy()
+    x = df[feature_list].copy()
     y = df[target_column].copy()
-
-    return X, y
+    return x, y
 
 
 def missing_value_summary(df):
@@ -105,7 +92,6 @@ def missing_value_summary(df):
     })
 
     missing = missing[missing["Missing Values"] > 0]
-
     return missing.sort_values(
         by="Percentage",
         ascending=False
@@ -142,17 +128,11 @@ def remove_outliers(df, column):
     ]
     return df
 
-
-###################
-
-def basic_cleaning2(
+def basic_cleaning(
         df,
         remove_duplicates=True
 ):
-
     if remove_duplicates:
         df = df.drop_duplicates()
-
     df.columns = df.columns.str.strip()
-
     return df

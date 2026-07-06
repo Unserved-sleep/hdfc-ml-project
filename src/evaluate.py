@@ -7,37 +7,13 @@ from sklearn.metrics import (
     precision_score,
     recall_score,
     f1_score,
-    roc_auc_score,
     classification_report,
-    confusion_matrix,
     ConfusionMatrixDisplay,
     RocCurveDisplay,
     mean_absolute_error,
     mean_squared_error,
     r2_score
 )
-
-
-def evaluate_classification(y_true, y_pred):
-    metrics = {
-        "Accuracy": accuracy_score(y_true, y_pred),
-        "Precision": precision_score(
-            y_true,
-            y_pred,
-            average="weighted"
-        ),
-        "Recall": recall_score(
-            y_true,
-            y_pred,
-            average="weighted"
-        ),
-        "F1 Score": f1_score(
-            y_true,
-            y_pred,
-            average="weighted"
-        )
-    }
-    return pd.DataFrame(metrics, index=[0])
 
 
 def print_classification_report(
@@ -66,13 +42,13 @@ def plot_confusion_matrix(
 
 def plot_roc_curve(
     model,
-    X_test,
+    x_test,
     y_test,
     title="ROC Curve"
 ):
     RocCurveDisplay.from_estimator(
         model,
-        X_test,
+        x_test,
         y_test
     )
 
@@ -179,17 +155,10 @@ def actual_vs_predicted(
     plt.title("Actual vs Predicted")
     plt.show()
 
-
-#######################
-
-def evaluate_classification2(y_true, y_pred, model_name="Model"):
-
+def evaluate_classification(y_true, y_pred, model_name="Model"):
     metrics = pd.DataFrame({
-
         "Model": [model_name],
-
         "Accuracy": [accuracy_score(y_true, y_pred)],
-
         "Precision": [precision_score(
             y_true,
             y_pred,
@@ -209,14 +178,5 @@ def evaluate_classification2(y_true, y_pred, model_name="Model"):
         )]
 
     })
-
-    return metrics
-
-
-def plot_feature_importance2(
-        model,
-        feature_names,
-        top_n=15
-):
 
     return metrics
