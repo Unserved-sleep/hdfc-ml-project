@@ -15,7 +15,7 @@ hdfc-ml-project/
 │   ├── 03_default_risk_analysis.ipynb
 │   ├── 04_loan_amount_prediction.ipynb
 │   ├── 05_svm_analysis.ipynb
-│   ├── 06_clustering_analysis.ipynb
+│   ├── 06_knn_analysis.ipynb
 │   ├── 07_unsupervised_learning.ipynb
 │   └── 08_advanced_clustering.ipynb
 │
